@@ -1,35 +1,40 @@
-<script>
+<script lang="ts">
   import { tick, createEventDispatcher } from 'svelte';
+  import type { SheetType } from '../types/sheet.type';
 
   const dispatch = createEventDispatcher();
-  const color = '#9400D3'
-  
-  const focusOnInit = (node) => 
-  node && typeof node.focus === 'function' && node.focus();
 
-  export let sheet
-  export let isCurrent = false
-  let textEl;
+  const focusOnInit = (node: HTMLElement) =>
+    node && typeof node.focus === 'function' && node.focus();
 
+  export let sheet: SheetType;
+  export let zoomed = false;
+  export let isCurrent = false;
 
-  function update(updateSheet) {
-    sheet = { ...sheet, ...updateSheet};
+  $: color = sheet.content.trim() === '' ? 'gray' : sheet['color'];
+
+  let textEl: HTMLTextAreaElement;
+
+  function update(updatedSheet: Partial<SheetType>) {
+    sheet = { ...sheet, ...updatedSheet };
   }
 
-  function onEditContent(content){
-    update({content: content});
+  function onEditContent(content: string) {
+    update({ content: content });
     dispatch('update', sheet);
-
   }
 
+  function onEditName(name: string) {
+    update({ name: name });
+    dispatch('update', sheet);
+  }
 
   async function focusTextArea() {
     await tick();
     textEl.focus();
   }
 
-  $: if (isCurrent) focusTextArea()
-
+  $: if (isCurrent) focusTextArea();
 </script>
 
 <div
@@ -43,13 +48,25 @@
   --selection-bg: var(--{color}-100);
   --selection-text: var(--{color}-900)"
 >
+  <div class="label-container">
+    <input
+      type="text"
+      bind:value={sheet.name}
+      on:input={(e) => onEditName(e.currentTarget.value)}
+      class="label-input"
+      class:zoomed
+    />
+  </div>
   <textarea
     bind:this={textEl}
     use:focusOnInit
+    id="sheet-{sheet.id}"
     on:focus={() => dispatch('focus', sheet.id)}
     on:input={(e) => onEditContent(e.currentTarget.value)}
+    tabindex={sheet.id}
     class="sheet-text"
-    ></textarea
+    class:zoomed
+    spellcheck="false">{sheet.content}</textarea
   >
 </div>
 
@@ -140,4 +157,3 @@
     color: var(--selection-text);
   }
 </style>
-
