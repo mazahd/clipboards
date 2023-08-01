@@ -1,6 +1,7 @@
 <script lang="ts">
   import Sheet from './Sheet.svelte';
   import Toolbar from './Toolbar.svelte';
+  import Selection from './Selection.svelte'
   import type { SheetType } from '../types/sheet.type';
 
   export let sheets: SheetType[] = [];
@@ -53,21 +54,25 @@
       }
       currentSheet = nextSheet;
     }
+        else if (e.key === 'Alt') {
+            const newVariable = getSelectedText();
+      if (!newVariable) return;
+      money(sheets[currentSheet - 1], newVariable);
+    }
 
-    // else if (e.key === 'Alt') {
-    //         const newVariable = getSelectedText();
-    //   if (!newVariable) return;
-    //   money(sheets[currentSheet - 1], newVariable);
-    // }
   }
 
-    document.addEventListener('insert', (event) => {
-    // Access the event data (message) from ComponentA
-    alert('Received event in ComponentB:');
-  });
+  // function handleDispatch (e) {
+  //  money(sheets[currentSheet - 1], e.detail.message);
+
+  // }
+
 </script>
 
 <svelte:window bind:innerWidth={windowWidth} on:keydown={handleKeydown} />
+
+<!-- <Selection on:sendselection={handleDispatch} /> -->
+<!-- <Selection /> -->
 
 <Toolbar {sheets} {isMobile} bind:currentSheet bind:fullscreen={isZoomed} />
 

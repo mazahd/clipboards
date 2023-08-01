@@ -2,25 +2,9 @@
   import Pad from './Pad.svelte'
   import { sheets } from '../stores'
   import { xeets } from '../extore'
-  import { tick, createEventDispatcher } from 'svelte';
-
-  const dispatch = createEventDispatcher();
-
 
   let overlay = false
   let second = false
-  const getSelectedText = (): string => {
-  const element = document.activeElement as HTMLElement;
-  const isInTextField = element.tagName === "INPUT" || element.tagName === "TEXTAREA";
-  const selectedText = isInTextField
-    ? (element as HTMLInputElement | HTMLTextAreaElement).value.substring(
-        (element as HTMLInputElement | HTMLTextAreaElement).selectionStart,
-        (element as HTMLInputElement | HTMLTextAreaElement).selectionEnd
-      )
-    : window.getSelection()?.toString() ?? "";
-  return selectedText;
-};
-
 
 
 
@@ -32,12 +16,6 @@
         if (e.ctrlKey && e.key === 'x' ) {
       second = !second
   }
-    if (e.key === 'Alt') {
-            const newVariable = getSelectedText();
-      if (!newVariable) return;
-       dispatch('insert', { message: newVariable });
-
-    }
   }
     document.addEventListener('keydown', handleKeydown);
 
