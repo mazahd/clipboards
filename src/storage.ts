@@ -1,3 +1,5 @@
+import { writable } from 'svelte/store'
+
 type IStorage = {
     count: number;
 };
