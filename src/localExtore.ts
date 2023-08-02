@@ -11,6 +11,19 @@ export const localXtore = <T extends JsonValue>(key: string, initial: T) => {
     set(saved); // set the initial value for the writable store
   });
 
+  // Add listener for changes in local storage
+function handleStorageChanges(changes, area) {
+  if (area === 'local' || area === 'sync') {
+    if (key in changes) {
+      set(toObj(changes.jotdown.newValue))
+    }
+  }
+}
+
+// Set up the onChanged event listener
+chrome.storage.onChanged.addListener(handleStorageChanges);
+
+
   const { subscribe, set, update } = writable<T>(initial); // create the underlying writable store
 
   return {
