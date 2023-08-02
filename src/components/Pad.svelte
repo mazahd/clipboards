@@ -10,7 +10,7 @@
 
   $: currentSheet = 1;
 
-  let isZoomed = false;
+  let isZoomed = true;
 
   let windowWidth: number;
   $: isMobile = windowWidth <= mobileMaxWidth;

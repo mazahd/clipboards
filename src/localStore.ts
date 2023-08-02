@@ -12,6 +12,14 @@ export const localStore = <T extends JsonValue>(key: string, initial: T) => {
     localStorage.setItem(key, toString(initial)); // initialize local storage with initial value
   }
 
+// var updateOtherTabs;
+window.onstorage = (e) => {
+    if(e.key === key){
+      set(toObj(localStorage.getItem(key)))
+    }
+};
+
+
   const saved = toObj(localStorage.getItem(key)); // convert to object
 
   const { subscribe, set, update } = writable<T>(saved); // create the underlying writable store
