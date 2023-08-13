@@ -54,11 +54,27 @@
       }
       currentSheet = nextSheet;
     }
-        else if (e.key === 'Alt') {
-            const newVariable = getSelectedText();
-      if (!newVariable) return;
+
+  if (e.key === 'Alt' && e.shiftKey){
+      const newSection = "\n ------ \n"
+      money(sheets[currentSheet - 1], newSection)
+    }
+
+    const newVariable = getSelectedText();
+    if (!newVariable) return;
+
+    if (e.key === 'Alt' && !e.shiftKey) { 
       money(sheets[currentSheet - 1], newVariable);
     }
+    if (e.key === 'Control' && !e.shiftKey) {
+      const newLineWithSelection = "\n" + newVariable
+      money(sheets[currentSheet - 1], newLineWithSelection);
+    }
+    else if (e.ctrlKey && e.shiftKey) {
+      const doubleLineWithSelection = "\n \n" + newVariable
+      money(sheets[currentSheet - 1], doubleLineWithSelection);
+    }
+
 
   }
 
