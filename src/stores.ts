@@ -41,7 +41,28 @@ const initialSheets: SheetType[] = [
 		name: '',
 		color: 'pink',
 		content: ''
+	},
+  	{
+		id: 7,
+		name: '',
+		color: 'pink',
+		content: ''
+	},
+  	{
+		id: 8,
+		name: '',
+		color: 'pink',
+		content: ''
+	},
+  	{
+		id: 9,
+		name: '',
+		color: 'pink',
+		content: ''
 	}
+
+
+
 ]
 
 export const sheets = localStore<SheetType[]>('jotdown', initialSheets)

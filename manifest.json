@@ -31,5 +31,13 @@
             "128": "src/assets/icons/get_started128.png"
         }
     },
-    "permissions": ["storage"]
+    "permissions": ["storage"],
+     "web_accessible_resources": [{
+        "matches": ["<all_urls>"],
+        "resources": ["src/chatgpt.js"]
+    }],
+  "host_permissions": [
+    "https://*.openai.com/"
+  ]
+
 }

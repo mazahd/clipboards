@@ -84,7 +84,7 @@
     flex: 1;
     display: flex;
     flex-flow: column nowrap;
-    background-color: darkviolet;
+    background-color: var(--sheet-bg);
     color: lightblue;
   }
   .label-container {

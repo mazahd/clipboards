@@ -42,7 +42,14 @@ const initialSheets: SheetType[] = [
 		name: '',
 		color: 'pink',
 		content: ''
+	},
+  	{
+		id: 7,
+		name: '',
+		color: 'pink',
+		content: ''
 	}
+
 ]
 
 export const xeets = localXtore<SheetType[]>('jotdown', initialSheets)

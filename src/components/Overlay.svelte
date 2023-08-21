@@ -8,21 +8,18 @@
   let second = false
 
 
+function handleKeydown(e: KeyboardEvent) {
+    if (e.ctrlKey) {
+        if (e.key === 'l') {
+        overlay = !overlay
+            // executeCode();
+        } else if (e.key === 'x') {
+            second = !second; // Assuming 'second' is declared somewhere in your code
+        }
+    }
+}
 
-  function handleKeydown(e: KeyboardEvent) {
-        if (e.ctrlKey && e.key === 'l' ) {
-      overlay = !overlay
-  }
-
-        if (e.ctrlKey && e.key === 'x' ) {
-      second = !second
-  }
-
-  }
-
-  // $: console.log($sheets)
-    document.addEventListener('keydown', handleKeydown);
-
+document.addEventListener('keydown', handleKeydown);
 </script>
 
 {#if overlay}
