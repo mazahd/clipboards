@@ -7,17 +7,45 @@
   let overlay = false
   let second = false
 
+const port = chrome.runtime.connect();
+
+// Define a function to send a message to the background script
+function sendMessageToBackgroundScript(msg) {
+  port.postMessage(msg);
+}
+
+
+
+port.onMessage.addListener((msg) => {
+    // if(msg.data){
+    //   console.log(msg)
+    // console.log(msg)
+    // }
+    // if(msg.event){
+    console.log(msg)
+    //   alert(text)
+    // }
+  })
+
+// Example message to send
+const exampleMessage = {
+    question: "make a schedule for meals or recipes that have high protien and low healthy carbs "
+};
+
+// Send the example message to the background script
 
 function handleKeydown(e: KeyboardEvent) {
     if (e.ctrlKey) {
         if (e.key === 'l') {
-        overlay = !overlay
+        sendMessageToBackgroundScript(exampleMessage)
             // executeCode();
         } else if (e.key === 'x') {
             second = !second; // Assuming 'second' is declared somewhere in your code
         }
     }
 }
+
+
 
 document.addEventListener('keydown', handleKeydown);
 </script>

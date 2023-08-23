@@ -77,7 +77,7 @@ export class ChatGPTProvider implements Provider {
       }
     }
 
-    const modelName = await this.getModelName()
+    const modelName = 'gpt-4'
     console.debug('Using model:', modelName)
 
     await fetchSSE('https://chat.openai.com/backend-api/conversation', {
@@ -133,3 +133,23 @@ export class ChatGPTProvider implements Provider {
     return { cleanup }
   }
 }
+
+
+
+
+async function fetchModels(token) {
+  const resp = await request(token, 'GET', '/models').then((r) => r.json());
+  return resp.models;
+}
+
+async function fetchConversation(token) {
+  // const resp = await request(token, 'GET', `/conversation/${conversationId}`).then((r) => r.json());
+  // return resp.mapping;
+}
+
+
+async function fetchConversations(token) {
+  const resp = await request(token, 'GET', '/conversations').then((r) => r.json());
+  return resp.items;
+}
+
