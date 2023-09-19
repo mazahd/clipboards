@@ -29,7 +29,7 @@ port.onMessage.addListener((msg) => {
 
 // Example message to send
 const exampleMessage = {
-    question: "make a schedule for meals or recipes that have high protien and low healthy carbs "
+    question: "is this gpt-4?"
 };
 
 // Send the example message to the background script
@@ -40,8 +40,11 @@ function handleKeydown(e: KeyboardEvent) {
         sendMessageToBackgroundScript(exampleMessage)
             // executeCode();
         } else if (e.key === 'x') {
-            second = !second; // Assuming 'second' is declared somewhere in your code
+            second = true; // Assuming 'second' is declared somewhere in your code
         }
+    }
+   if (e.key === "Escape") {
+      second = false
     }
 }
 
